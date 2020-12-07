@@ -7,9 +7,9 @@ import com.cg.training.exception.AdminException;
 
 
 public interface AdminService {
-	public void addMember(MemberInformation memInfo) throws AdminException;
-	public void updateMember(MemberInformation memInfo) throws AdminException;
-	public void deleteMember(MemberInformation memInfo) throws AdminException;
-	public void searchMember(MemberInformation memInfo) throws AdminException;
+	public void addMember(MemberInformation memberInformation) throws AdminException;
+	public void updateMember(MemberInformation memberInformation) throws AdminException;
+	public int deleteMember(Integer memberId) throws AdminException;
+	public void searchMember(MemberInformation memberInformation) throws AdminException;
 
 }
