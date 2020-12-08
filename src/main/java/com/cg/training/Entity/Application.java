@@ -1,4 +1,4 @@
-package com.cg.training.entity;
+package com.cg.training.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,23 +10,23 @@ import javax.persistence.Id;
 public class Application {
 	@Id
 	@Column(name="application_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer applicationId;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private String applicationId;
 
 	public Application() {
 		super();
 	}
 
-	public Application(Integer applicationId) {
+	public Application(String applicationId) {
 		super();
 		this.applicationId = applicationId;
 	}
 
-	public Integer getApplicationId() {
+	public String getApplicationId() {
 		return applicationId;
 	}
 
-	public void setApplicationId(Integer applicationId) {
+	public void setApplicationId(String applicationId) {
 		this.applicationId = applicationId;
 	}
 

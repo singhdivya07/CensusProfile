@@ -5,35 +5,35 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
-import com.cg.training.entity.MemberInformation;
+import com.cg.training.Entity.MemberInformation;
+
 
 
 public class UserDaoImpl implements UserDao{
-	private EntityManagerFactory emf= 
-			Persistence.createEntityManagerFactory("census-profile-app1");
 
-	@Override
+	private EntityManagerFactory emf= 
+			Persistence.createEntityManagerFactory("census-profile-app");
+
 	public void addMember(MemberInformation memInfo) throws PersistenceException {
+
 		
-				
-			EntityManager entityManager=emf.createEntityManager();
-			try {			
-				entityManager.getTransaction().begin();
-				entityManager.persist(memInfo);
-				entityManager.flush();
-				entityManager.getTransaction().commit();			
-			}catch(PersistenceException e) {
-				entityManager.getTransaction().rollback();
-				throw e;
-			}catch(Exception e) {
-				throw e;
-			}finally {
-				entityManager.close();
-			}		
+		EntityManager entityManager=emf.createEntityManager();
+		try {			
+			entityManager.getTransaction().begin();
+			entityManager.persist(memInfo);
+			entityManager.flush();
+			entityManager.getTransaction().commit();			
+		}catch(PersistenceException e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		}finally {
+			entityManager.close();
+		}		
+	
 		
 	}
 
-	@Override
 	public MemberInformation updateMember(MemberInformation memInfo) throws PersistenceException {
 		EntityManager entityManager=emf.createEntityManager();
 		try {
@@ -45,30 +45,37 @@ public class UserDaoImpl implements UserDao{
 			return updatedMember;
 		}catch(PersistenceException e) {
 			entityManager.getTransaction().rollback();
-			throw e;
-		}catch(Exception e) {
+			e.printStackTrace();
 			throw e;
 		}finally {
 			entityManager.close();
 		}	
 	}
 
-	@Override
-	public MemberInformation getMemberById(Integer memId) throws PersistenceException {
+	public MemberInformation getMemberById(Integer memId) throws PersistenceException 
+	{
 		EntityManager entityManager=emf.createEntityManager();
 		try {
-			MemberInformation product =
+			MemberInformation memberInfo =
 					entityManager.find(MemberInformation.class, memId);			
-			return product;
+			return memberInfo;
 		}catch(PersistenceException e) {
-			throw e;
-		}catch(Exception e) {
+			e.printStackTrace();
 			throw e;
 		}finally {
 			entityManager.close();
 		}	
 	}
 
+	}
 
+	
+	
 
-}
+	
+//	
+	
+	
+	
+	
+	

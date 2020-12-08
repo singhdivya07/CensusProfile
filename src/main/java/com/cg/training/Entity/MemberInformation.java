@@ -1,8 +1,6 @@
-package com.cg.training.entity;
+package com.cg.training.Entity;
 
-
-import java.util.Date;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,12 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.cg.training.service.Gender;
-import com.cg.training.service.MaritalStatus;
-import com.cg.training.service.Relationship;
 
 @Entity
 @Table(name="member_information")
@@ -30,26 +22,23 @@ public class MemberInformation {
 @Column(name="last_name")
 	private String lastName;
 	private Integer age;
-	 @Enumerated(EnumType.STRING)
-	   
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
-	@Temporal(TemporalType.DATE)
-	private Date dob;
+	private LocalDate dob;
 	@Column(name="education_details")
 	private String educationDetails;
-	 @Enumerated(EnumType.STRING)
-	@Column(name="marital_status")
 	
+	@Column(name="marital_status")
+	@Enumerated(EnumType.STRING)
 	private MaritalStatus maritalStatus;
-	 @Enumerated(EnumType.STRING)
-	 
+	@Enumerated(EnumType.STRING)
 	private Relationship relationship;
 	
 	public MemberInformation() {
 		super();
 	}
 
-	public MemberInformation(Integer memberId, String firstName, String lastName, Integer age, Gender gender, Date dob,
+	public MemberInformation(Integer memberId, String firstName, String lastName, Integer age, Gender gender, LocalDate dob,
 			String educationDetails,  MaritalStatus maritalStatus, Relationship relationship) {
 		super();
 		this.memberId = memberId;
@@ -64,14 +53,6 @@ public class MemberInformation {
 		
 		
 	}
-	
-	
-	
-	
-	
-
-	
-	
 
 	public Integer getMemberId() {
 		return memberId;
@@ -113,12 +94,12 @@ public class MemberInformation {
 		this.gender = gender;
 	}
 
-	public Date getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
-	public void setDob(Date localDate) {
-		this.dob = localDate;
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
 	}
 
 	public String getEducationDetails() {

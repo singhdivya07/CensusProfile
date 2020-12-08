@@ -2,8 +2,7 @@ package com.cg.training.dao;
 
 import javax.persistence.PersistenceException;
 
-import com.cg.training.entity.MemberInformation;
-
+import com.cg.training.Entity.MemberInformation;
 
 public interface UserDao {
 	

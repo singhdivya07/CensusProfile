@@ -1,7 +1,7 @@
 package com.cg.training.service;
 
 
-import com.cg.training.entity.MemberInformation;
+import com.cg.training.Entity.MemberInformation;
 import com.cg.training.exception.UserException;
 
 

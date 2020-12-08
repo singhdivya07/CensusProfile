@@ -1,4 +1,4 @@
-package com.cg.training.entity;
+package com.cg.training.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,34 +7,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.cg.training.service.Role;
-
 @Entity
 @Table(name="actor_information")
 public class Actor {
 	
 	@Id
 	@Column(name="actor_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer actorId;
-	@Column(name="actor_name",nullable=false)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private String actorId;
+	@Column(name="actor_name")
 	private String actorName;
 	private String password;
 	private Role role;
 	public Actor() {
 		super();
 	}
-	public Actor(Integer actorId, String actorName, String password, Role role) {
+	public Actor(String actorId, String actorName, String password, Role role) {
 		super();
 		this.actorId = actorId;
 		this.actorName = actorName;
 		this.password = password;
 		this.role = role;
 	}
-	public Integer getActorId() {
+	public String getActorId() {
 		return actorId;
 	}
-	public void setActorId(Integer actorId) {
+	public void setActorId(String actorId) {
 		this.actorId = actorId;
 	}
 	public String getActorName() {
