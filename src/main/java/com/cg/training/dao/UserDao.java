@@ -2,12 +2,10 @@ package com.cg.training.dao;
 
 import javax.persistence.PersistenceException;
 
-import com.cg.training.Entity.MemberInformation;
+import com.cg.training.entity.User;
 
-public interface UserDao {
-	
-	public void addMember(MemberInformation memInfo) throws PersistenceException;
-	public MemberInformation updateMember(MemberInformation memInfo) throws PersistenceException;
-	public MemberInformation getMemberById(Integer memId) throws PersistenceException;
-
+public interface UserDao 
+{
+	public User addUser(User user) throws PersistenceException;
+	public boolean loginUser(String userName,String password) throws PersistenceException;
 }

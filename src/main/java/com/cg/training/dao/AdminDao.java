@@ -4,13 +4,12 @@ import java.util.Date;
 
 import javax.persistence.PersistenceException;
 
-import com.cg.training.Entity.MemberInformation;
-import com.cg.training.exception.AdminException;
+import com.cg.training.entity.MemberInformation;
 
 public interface AdminDao {
 	
-	public void addMember(MemberInformation  memInfo) throws PersistenceException;
-	public void updateMember(MemberInformation memInfo) throws PersistenceException;
+	public void addMember(MemberInformation  memberInformation) throws PersistenceException;
+	public MemberInformation updateMember(MemberInformation memberInformation) throws PersistenceException;
 	public int deleteMember(Integer memberId) throws PersistenceException;
 	
 	//Search Operations

@@ -1,6 +1,8 @@
-package com.cg.training.Entity;
+package com.cg.training.entity;
 
 import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,51 +10,48 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cg.training.entity.Application;
+
 @Entity
-@Table(name="member_information")
+@Table(name = "member_information")
 public class MemberInformation {
-@Id
-@Column(name="member_id")
-@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@Column(name = "member_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer memberId;
-@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
-@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
 	private Integer age;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	private LocalDate dob;
-	@Column(name="education_details")
+	@Column(name = "education_details")
 	private String educationDetails;
-	
-	@Column(name="marital_status")
+
+	@Column(name = "marital_status")
 	@Enumerated(EnumType.STRING)
 	private MaritalStatus maritalStatus;
 	@Enumerated(EnumType.STRING)
 	private Relationship relationship;
 	
+	
+	
+	//many to many mapping
+		@ManyToOne(cascade = CascadeType.ALL)
+		@JoinColumn(name="application_id")  
+		private Application application;
+
+
 	public MemberInformation() {
-		super();
+		
 	}
 
-	public MemberInformation(Integer memberId, String firstName, String lastName, Integer age, Gender gender, LocalDate dob,
-			String educationDetails,  MaritalStatus maritalStatus, Relationship relationship) {
-		super();
-		this.memberId = memberId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.age = age;
-		this.gender = gender;
-		this.dob = dob;
-		this.educationDetails = educationDetails;
-		this. maritalStatus = maritalStatus;
-		this.relationship = relationship;
-		
-		
-	}
 
 	public Integer getMemberId() {
 		return memberId;
@@ -126,15 +125,22 @@ public class MemberInformation {
 		this.relationship = relationship;
 	}
 
+	public Application getApplication() {
+		return application;
+	}
+
+
+	public void setApplication(Application application) {
+		this.application = application;
+	}
+
+
 	@Override
 	public String toString() {
 		return "MemberInformation [memberId=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", age=" + age + ", gender=" + gender + ", dob=" + dob + ", educationDetails=" + educationDetails
 				+ ", maritalStatus=" + maritalStatus + ", relationship=" + relationship + "]";
 	}
+
 	
-	
-	
-	
-	
-}
+	}

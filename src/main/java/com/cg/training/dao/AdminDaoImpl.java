@@ -8,19 +8,19 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import com.cg.training.Entity.MemberInformation;
+import com.cg.training.entity.MemberInformation;
 
 public class AdminDaoImpl implements AdminDao{
 
 	private EntityManagerFactory emf=Persistence.createEntityManagerFactory("census-profile-app");
 	
-	public void addMember(MemberInformation memInfo) throws PersistenceException 
+	public void addMember(MemberInformation memberInformation) throws PersistenceException 
 	{
 		
 		EntityManager entityManager=emf.createEntityManager();
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.persist(memInfo);
+			entityManager.persist(memberInformation);
 			entityManager.flush();
 			entityManager.getTransaction().commit();
 	
@@ -36,8 +36,22 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	//Update
-	public void updateMember(MemberInformation memInfo) throws PersistenceException {
-		
+	public MemberInformation updateMember(MemberInformation memberInformation) throws PersistenceException {
+		EntityManager entityManager=emf.createEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			MemberInformation updatedMember= 
+					entityManager.merge(memberInformation);			
+			entityManager.flush();
+			entityManager.getTransaction().commit();	
+			return updatedMember;
+		}catch(PersistenceException e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		}finally {
+			entityManager.close();
+		}	
 	}
 
 	public int deleteMember(Integer memberId) throws PersistenceException {
