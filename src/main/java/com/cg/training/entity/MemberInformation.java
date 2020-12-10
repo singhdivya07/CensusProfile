@@ -2,7 +2,6 @@ package com.cg.training.entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.cg.training.entity.Application;
 
 @Entity
 @Table(name = "member_information")
@@ -38,18 +35,19 @@ public class MemberInformation {
 	@Enumerated(EnumType.STRING)
 	private MaritalStatus maritalStatus;
 	@Enumerated(EnumType.STRING)
+	@Column(name="relationship")
 	private Relationship relationship;
-	
-	
-	
+
+
+
 	//many to many mapping
-		@ManyToOne(cascade = CascadeType.ALL)
-		@JoinColumn(name="application_id")  
-		private Application application;
+	@ManyToOne
+	@JoinColumn(name="application_id")  
+	private Application application;
 
 
 	public MemberInformation() {
-		
+
 	}
 
 
@@ -142,5 +140,5 @@ public class MemberInformation {
 				+ ", maritalStatus=" + maritalStatus + ", relationship=" + relationship + "]";
 	}
 
-	
-	}
+
+}

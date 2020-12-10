@@ -7,7 +7,7 @@ import com.cg.training.exception.UserException;
 
 public interface UserService 
 {
-	public void addUser(User user) throws UserException;
+	public User addUser(User user) throws UserException;
 	
 
 }

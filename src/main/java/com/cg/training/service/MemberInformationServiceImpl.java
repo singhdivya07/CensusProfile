@@ -1,5 +1,7 @@
 package com.cg.training.service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,13 +9,13 @@ import javax.persistence.PersistenceException;
 
 import com.cg.training.dao.MemberInformationDao;
 import com.cg.training.dao.MemberInformationDaoImpl;
-import com.cg.training.entity.*;
-import com.cg.training.exception.UserException;
+import com.cg.training.entity.MemberInformation;
+import com.cg.training.exception.MemberInformationException;
 
 public class MemberInformationServiceImpl implements MemberInformationService{
 	 private MemberInformationDao memberInformationDao = new MemberInformationDaoImpl();
 	 @Override
-	public void addMember(MemberInformation memInfo) throws UserException {
+	public MemberInformation addMember(MemberInformation memInfo) throws MemberInformationException {
 		try {
 			//Name validation
 			String firstName = memInfo.getFirstName();
@@ -33,11 +35,11 @@ public class MemberInformationServiceImpl implements MemberInformationService{
 					 memberInformationDao.addMember(memInfo);
 					else
 					{
-						throw new UserException("Age cannot be greater than 125 yrs");
+						throw new MemberInformationException("Age cannot be greater than 125 yrs");
 					}
 		    	}
 			else
-				throw new UserException("Invalid Name! Please Enter Valid Names");
+				throw new MemberInformationException("Invalid Name! Please Enter Valid Names");
 			
 		
 			
@@ -46,28 +48,69 @@ public class MemberInformationServiceImpl implements MemberInformationService{
 		}catch(PersistenceException e) {
 			e.getMessage();
 		}
+		return memInfo;
 		
 	}
 	@Override
-	public MemberInformation updateMember(MemberInformation memInformation) throws UserException {
+	public MemberInformation updateMember(MemberInformation memInformation) throws MemberInformationException {
 		try {			
 			MemberInformation memInfo = 
 					memberInformationDao.updateMember(memInformation);
 			return memInfo;
 		}catch(PersistenceException e) {
-			throw new UserException(e.getMessage(),e);
+			throw new MemberInformationException(e.getMessage(),e);
 		}
 	}
+	
 	@Override
-	public MemberInformation getMemberById(Integer memberId) throws UserException {
-		try {			
-			MemberInformation memberInfo = memberInformationDao.getMemberById(memberId);
-			return memberInfo;
+	public int deleteMember(Integer memberId) throws MemberInformationException {
+		try {
+			memberInformationDao.deleteMember(memberId);
+			return memberId;
 		}catch(PersistenceException e) {
-			throw new UserException(e.getMessage(),e);
+			throw e;
 		}
-		
 	}
+	
+	//search operations
+	
+			//by id
+			public MemberInformation searchMemberById(Integer memberId) throws MemberInformationException {
+				try {			
+					MemberInformation memberInfo = memberInformationDao.searchMemberById(memberId);
+					return memberInfo;
+				}catch(PersistenceException e) {
+					throw e;
+				}
+			}
+			
+			
+			//by firstName
+			public List< MemberInformation> searchMemberByFirstName(String firstName) throws MemberInformationException {
+				try {			
+					List<MemberInformation> list = memberInformationDao.searchMemberByFirstName(firstName);
+					return list;
+				}catch(PersistenceException e) {
+					throw e;
+				}
+			}
+			
+			//by lastName
+
+			public List<MemberInformation> searchMemberByLastName(String lastName) throws MemberInformationException {
+				try {	
+					List<MemberInformation> list = memberInformationDao.searchMemberByFirstName(lastName);
+					return list;
+				}catch(PersistenceException e) {
+					throw e;
+				}
+			}
+			
+			
+			public List<MemberInformation> searchMemberByDob(Date dob) throws MemberInformationException {
+				// TODO Auto-generated method stub
+				return null;
+			}
  
 
 }

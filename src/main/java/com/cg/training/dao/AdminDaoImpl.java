@@ -1,6 +1,7 @@
 package com.cg.training.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,16 +15,21 @@ public class AdminDaoImpl implements AdminDao{
 
 	private EntityManagerFactory emf=Persistence.createEntityManagerFactory("census-profile-app");
 	
-	public void addMember(MemberInformation memberInformation) throws PersistenceException 
+	//public MemberInformation addMember(MemberInformation memberInformation,int noOfMembers) throws PersistenceException
+	public MemberInformation addMember(MemberInformation memberInformation) throws PersistenceException 
 	{
 		
 		EntityManager entityManager=emf.createEntityManager();
+		//int flag=0;
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(memberInformation);
-			entityManager.flush();
-			entityManager.getTransaction().commit();
-	
+			//while(flag<noOfMembers)
+			//{
+				entityManager.getTransaction().begin();
+				entityManager.persist(memberInformation);
+				entityManager.flush();
+				entityManager.getTransaction().commit();
+				//flag++;
+			//}
 		}catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
 			throw e;
@@ -33,6 +39,7 @@ public class AdminDaoImpl implements AdminDao{
 		finally {
 			entityManager.close();
 		}
+		return memberInformation;
 	}
 
 	//Update
@@ -54,93 +61,95 @@ public class AdminDaoImpl implements AdminDao{
 		}	
 	}
 
-	public int deleteMember(Integer memberId) throws PersistenceException {
-		EntityManager entityManager=emf.createEntityManager();
-		try {
-			entityManager.getTransaction().begin();
-			MemberInformation memberInformation= 
-					entityManager.find(MemberInformation.class, memberId);
-			entityManager.remove(memberInformation);
-//			entityManager.flush();
-			entityManager.getTransaction().commit();	
-			return memberInformation.getMemberId();
-		}catch(PersistenceException e) {
-			entityManager.getTransaction().rollback();
-			throw e;
-		}finally {
-			entityManager.close();
-		}	
+//	public int deleteMember(Integer memberId) throws PersistenceException {
+//		EntityManager entityManager=emf.createEntityManager();
+//		try {
+//			entityManager.getTransaction().begin();
+//			MemberInformation memberInformation= 
+//					entityManager.find(MemberInformation.class, memberId);
+//			entityManager.remove(memberInformation);
+////			entityManager.flush();
+//			entityManager.getTransaction().commit();	
+//			return memberInformation.getMemberId();
+//		}catch(PersistenceException e) {
+//			entityManager.getTransaction().rollback();
+//			throw e;
+//		}finally {
+//			entityManager.close();
+//		}	
+//		
 		
-		
-	}
+	//}
 	
 	//search operations
-	//by id
-	public MemberInformation searchMemberById(Integer memberId) throws PersistenceException 
-	{
+		//by id
+		public MemberInformation searchMemberById(Integer memberId) throws PersistenceException 
+		{
 
-		EntityManager entityManager=emf.createEntityManager();
-		try {
-			MemberInformation memberInfo =
-					entityManager.find(MemberInformation.class, memberId);			
-			return memberInfo;
-		}catch(PersistenceException e) {
-			e.printStackTrace();
-			throw e;
-		}finally {
-			entityManager.close();
-		}	
-	
-	}
-	
-	//firstName
-
-	public MemberInformation searchMemberByFirstName(String firstName) throws PersistenceException {
+			EntityManager entityManager=emf.createEntityManager();
+			try {
+				MemberInformation memberInfo =
+						entityManager.find(MemberInformation.class, memberId);			
+				return memberInfo;
+			}catch(PersistenceException e) {
+				e.printStackTrace();
+				throw e;
+			}finally {
+				entityManager.close();
+			}	
 		
-		MemberInformation memberInformation;
-		EntityManager entityManager=emf.createEntityManager();
-		try {
+		}
+		
+		//firstName
+
+		public List<MemberInformation> searchMemberByFirstName(String firstName) throws PersistenceException {
 			
-			 TypedQuery<MemberInformation> query = entityManager.createQuery(
-				        "SELECT c FROM MemberInformation c WHERE c.firstName = :firstName", MemberInformation.class);
-				    /**/
-			  memberInformation=query.getSingleResult();
-			  return memberInformation;
 			
-		}catch(PersistenceException e) {
-			e.printStackTrace();
-			throw e;
-		}finally {
-			entityManager.close();
-		}	
-	}
-	
-	//by lastName
-	public MemberInformation searchMemberByLastName(String lastName) throws PersistenceException 
-	{
+			EntityManager entityManager=emf.createEntityManager();
+			try {
+				
+				 TypedQuery<MemberInformation> query = entityManager.createQuery(
+					        "SELECT c FROM MemberInformation c WHERE c.firstName = :firstName", MemberInformation.class);
+					    /**/
+				 query.setParameter("firstName", firstName);
+				 List<MemberInformation> list=query.getResultList();
+				  return list;
+				
+			}catch(PersistenceException e) {
+				e.printStackTrace();
+				throw e;
+			}finally {
+				entityManager.close();
+			}	
+		}
+		
+		//by lastName
+		public List<MemberInformation> searchMemberByLastName(String lastName) throws PersistenceException 
+		{
 
-		EntityManager entityManager=emf.createEntityManager();
-		try {
-			MemberInformation memberInfo =
-					entityManager.find(MemberInformation.class, lastName);			
-			return memberInfo;
-		}catch(PersistenceException e) {
-			e.printStackTrace();
-			throw e;
-		}finally {
-			entityManager.close();
-		}	
-	}
-	
-	//by DOB
-	public MemberInformation searchMemberByDob(Date dob) throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+			EntityManager entityManager=emf.createEntityManager();
+			try {
+				
+				 TypedQuery<MemberInformation> query = entityManager.createQuery(
+					        "SELECT c FROM MemberInformation c WHERE c.lastName = :lastName", MemberInformation.class);
+					    /**/
+				 query.setParameter("lastName", lastName);
+				 List<MemberInformation> list=query.getResultList();
+				  return list;
+				
+			}catch(PersistenceException e) {
+				e.printStackTrace();
+				throw e;
+			}finally {
+				entityManager.close();
+			}	
+		}
+		
+		//by DOB
+		public List<MemberInformation> searchMemberByDob(Date dob) throws PersistenceException {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
-	
-
-
-	
 
 }

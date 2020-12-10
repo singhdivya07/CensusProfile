@@ -1,12 +1,13 @@
 package com.cg.training.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-
-
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 @Entity
 @Table(name="user_information")
 public class User 
@@ -20,16 +21,10 @@ public class User
 	@Column(name="user_name")
 	private String userName;
 	
-	
+	@Column(name="password")
 	private String password;
-//
-//	 @OneToOne(cascade=CascadeType.ALL)
-//	    @JoinColumn(name="address_id")
-//	    private AddressBi addressBi;
-//	    
-	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-//	@JoinColumn(name="application_id")
-	//private List<Application> applicationList=new ArrayList<>() ;
+	    
+	@OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
 	private Application application;
 
 	public User() {
@@ -43,15 +38,7 @@ public class User
 		this.password = password;
 	}
 
-//	
-//	public User(Integer userId, String userName, String password, List<Application> applicationList) {
-//		super();
-//		this.userId = userId;
-//		this.userName = userName;
-//		this.password = password;
-//		this.applicationList = applicationList;
-//	}
-	
+
 	
 	public User(Integer userId, String userName, String password, Application application) {
 		super();
@@ -97,7 +84,8 @@ public class User
 
 	public void setApplication(Application application) 
 	{
-		application.setUser(this);
+//		application.setUser(this);
+		this.application=application;
 	}
 
 

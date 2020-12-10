@@ -1,12 +1,24 @@
 package com.cg.training.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.*;
 
-//inverse side
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+//owning side for one to one
+//reverse side for one to many
 
 @Entity
+@Table(name="application")
 public class Application {
 	@Id
 	@Column(name="application_id")
@@ -14,24 +26,34 @@ public class Application {
 	private Integer applicationId;
 
 	@OneToMany(mappedBy = "application")
-	private List<MemberInformation> members=new ArrayList<MemberInformation>();
+	private Set<MemberInformation> members;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
+//	
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="user_id")
+//	private Admin admin;
 	
-
 	public Application() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Application(Integer applicationId, List<MemberInformation> members, User user) {
-		super();
-		this.applicationId = applicationId;
-		this.members = members;
-		this.user = user;
-	}
+//	public Application(Integer applicationId, List<MemberInformation> members, User user) {
+//		super();
+//		this.applicationId = applicationId;
+//		this.members = members;
+//		this.user = user;
+//	}
+	
+//	public Application(Integer applicationId, User user) {
+//		super();
+//		this.applicationId = applicationId;
+//	
+//		this.user = user;
+//	}
 
 
 	public Integer getApplicationId() {
@@ -40,30 +62,44 @@ public class Application {
 	public void setApplicationId(Integer applicationId) {
 		this.applicationId = applicationId;
 	}
-	public List<MemberInformation> getMembers() {
+	public Set<MemberInformation> getMembers() {
 		return members;
 	}
 	
-	
-	public void setMembers(MemberInformation member)
-	{
-		members.add(member);
-		member.setApplication(this);
+	public void setMembers(Set<MemberInformation> members) {
+		this.members = members;
 	}
-	
+
+
+	//	
+//	public void setMembers(MemberInformation member)
+//	{
+//		members.add(member);
+//		member.setApplication(this);
+//	}
+//	
 	public User getUser() {
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
+	
 	}
 
 
-	@Override
-	public String toString() {
-		return "Application [applicationId=" + applicationId + ", members=" + members + ", user=" + user + "]";
-	}
+//	public Admin getAdmin() {
+//		return admin;
+//	}
+//
+//
+//	public void setAdmin(Admin admin) {
+//		this.admin = admin;
+//	}
 
-
+	
+//	@Override
+//	public String toString() {
+//		return "Application [applicationId=" + applicationId + ", user=" + user + "]";
+//	}
 
 }

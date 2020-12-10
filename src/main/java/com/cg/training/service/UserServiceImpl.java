@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService
 	UserDao userDao=new UserDaoImpl();
 
 	@Override
-	public void addUser(User user) throws UserException {
+	public User addUser(User user) throws UserException {
 		try 
 		{
 			userDao.addUser(user);
@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService
 		} catch(PersistenceException e) {
 			throw new UserException(e.getMessage(),e);
 		}
+		return user;
 		
 
 

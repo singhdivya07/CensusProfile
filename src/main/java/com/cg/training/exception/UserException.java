@@ -21,7 +21,7 @@ public class UserException extends Exception {
 
 	@Override
 	public String toString() {
-		return "ProductException [message=" + message + "]";
+		return "UserException [message=" + message + "]";
 	}
 
 	public String getMessage() {

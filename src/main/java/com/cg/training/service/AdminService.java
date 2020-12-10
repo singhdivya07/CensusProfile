@@ -1,14 +1,16 @@
 package com.cg.training.service;
 
 import java.util.Date;
+import java.util.List;
 
 import com.cg.training.entity.MemberInformation;
 import com.cg.training.exception.AdminException;
 
 public interface AdminService {
-	public void addMember(MemberInformation memInfo) throws AdminException;
+	//public MemberInformation addMember(MemberInformation memInfo,int noOfMembers) throws AdminException;
+	public MemberInformation addMember(MemberInformation memInfo) throws AdminException;
 	public MemberInformation updateMember(MemberInformation memInfo) throws AdminException;
-	public int deleteMember(Integer memberId) throws AdminException;
+	//public int deleteMember(Integer memberId) throws AdminException;
 	
 	
 	//Search Operations
@@ -17,12 +19,12 @@ public interface AdminService {
 		public MemberInformation searchMemberById(Integer memberId) throws AdminException;
 		
 		//by firstName
-		public MemberInformation searchMemberByFirstName(String firstName) throws AdminException;
+		public List<MemberInformation> searchMemberByFirstName(String firstName) throws AdminException;
 		
 		//by lastName
-		public MemberInformation searchMemberByLastName(String lastName) throws AdminException;
+		public List<MemberInformation> searchMemberByLastName(String lastName) throws AdminException;
 		
 		//by DOB
-		public MemberInformation searchMemberByDob(Date dob) throws AdminException;
+		public List<MemberInformation> searchMemberByDob(Date dob) throws AdminException;
 
 }

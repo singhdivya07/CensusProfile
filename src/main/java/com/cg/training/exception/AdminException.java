@@ -21,7 +21,7 @@ public class AdminException extends Exception {
 
 	@Override
 	public String toString() {
-		return "ProductException [message=" + message + "]";
+		return "AdminException [message=" + message + "]";
 	}
 
 	public String getMessage() {
