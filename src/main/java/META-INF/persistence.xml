@@ -3,11 +3,6 @@
 	<persistence-unit name="census-profile-app">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
-		
-		<class>com.cg.training.entity.Application</class>
-		<class>com.cg.training.entity.MemberInformation</class>
-		<class>com.cg.training.entity.User</class>
-		
 	
 	
 	<properties>
