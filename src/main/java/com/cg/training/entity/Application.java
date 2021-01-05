@@ -37,7 +37,6 @@ public class Application {
 //	private Admin admin;
 	
 	public Application() {
-		// TODO Auto-generated constructor stub
 	}
 
 

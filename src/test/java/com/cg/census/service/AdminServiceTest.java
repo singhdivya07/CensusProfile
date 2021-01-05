@@ -33,6 +33,10 @@ class AdminServiceTest {
 	//Test to Check Valid First Name
 		@Test
 		void testAddMemberValidateFirstName() throws AdminException {
+
+			try
+			{
+
 			MemberInformation memberInfo = new MemberInformation();
 
 			memberInfo.setFirstName("Rucha");
@@ -42,6 +46,13 @@ class AdminServiceTest {
 			adminServiceImpl.addMember(memberInfo);
 
 			verify(adminDaoImpl,times(1)).addMember(memberInfo);	
+
+			}
+			catch(Exception e)
+			{
+				throw new AdminException("");
+			}
+
 		
 		}
 
@@ -50,19 +61,33 @@ class AdminServiceTest {
 		void testAddMemberValidateLastName() throws AdminException {
 				MemberInformation memberInfo = new MemberInformation();
 
+try {
+
 			memberInfo.setFirstName("Rucha");
 			memberInfo.setLastName("Sheth*");	
 			memberInfo.setAge(22);
 
 			adminServiceImpl.addMember(memberInfo);
 
+
+			verify(adminDaoImpl,times(1)).addMember(memberInfo);
+		}
+		catch(Exception e)
+		{
+			throw new AdminException("");
+		}
+
 			verify(adminDaoImpl,times(1)).addMember(memberInfo);	
+
 			
 		}
 
 		//Test to check Invalid FirstName
 		@Test
 		void testAddMemberInvalidName() throws AdminException {
+
+			try {
+
 			MemberInformation memberInfo = new MemberInformation();
 
 			memberInfo.setFirstName("Rucha123");
@@ -72,12 +97,23 @@ class AdminServiceTest {
 			adminServiceImpl.addMember(memberInfo);
 
 			verify(adminDaoImpl,times(1)).addMember(memberInfo);	
+
+			}
+			catch(Exception e)
+			{
+				throw new AdminException("");
+			}
+
 			
 		}
 
 		//Test to check Invalid LastName
 		@Test
 		void testAddMemberInvalidLastName() throws AdminException {
+
+			try
+			{
+
 			MemberInformation memberInfo = new MemberInformation();
 
 			memberInfo.setFirstName("Rucha");
@@ -87,6 +123,13 @@ class AdminServiceTest {
 			adminServiceImpl.addMember(memberInfo);
 
 			verify(adminDaoImpl,times(1)).addMember(memberInfo);	
+
+			}
+			catch(Exception e)
+			{
+				throw new AdminException("");
+			}
+
 			
 		}
 
@@ -94,6 +137,9 @@ class AdminServiceTest {
 		//Test to check Valid Age
 		@Test
 		void testAddMemberValidateAge() throws AdminException {
+
+			try {
+
 			MemberInformation memberInfo = new MemberInformation();
 			memberInfo.setFirstName("Rucha");
 			memberInfo.setLastName("Sheth");	
@@ -102,12 +148,22 @@ class AdminServiceTest {
 			adminServiceImpl.addMember(memberInfo);
 
 			verify(adminDaoImpl,times(1)).addMember(memberInfo);	
+
+			}
+			catch(Exception e)
+			{
+				throw new AdminException("");
+			}
+
 			
 		}	
 
 		//Test to check Invalid Age
 		@Test
 		void testAddMemberInvalidAge() throws AdminException {
+
+			try {
+
 			MemberInformation memberInfo = new MemberInformation();
 			memberInfo.setFirstName("Rucha");
 			memberInfo.setLastName("Sheth");	
@@ -116,7 +172,13 @@ class AdminServiceTest {
 			adminServiceImpl.addMember(memberInfo);
 
 			verify(adminDaoImpl,times(1)).addMember(memberInfo);	
-			
+
+			}
+			catch(Exception e)
+			{
+				throw new AdminException("");
+			}
+
 		}	
 		
 		
