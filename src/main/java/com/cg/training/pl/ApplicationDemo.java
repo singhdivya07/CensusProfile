@@ -33,6 +33,7 @@ public class ApplicationDemo {
 	private static Logger logger=Logger.getLogger(ApplicationDemo.class);
 
 	public static void main(String[] args) throws AdminException, UserException, MemberInformationException {
+
 		System.out.println("Only family head can enter the data ");
 		System.out.println("Enter 1. Admin 2. User ");
 		int option = Integer.parseInt(sc.nextLine());
@@ -53,6 +54,27 @@ public class ApplicationDemo {
 			int operation = sc.nextInt();
 				try {
 					
+=======
+		while (true) {
+			System.out.println("Only family head can enter the data ");
+			System.out.println("Enter 1. Admin 2. User ");
+			int option = Integer.parseInt(sc.nextLine());
+			if (option == 1 || option == 2) {
+
+				User user = new User();
+				Application application = new Application();
+				user = adminUserDo.addUser(user); // user added
+				System.out.println("1.user done");
+				application.setUser(user); // set user by application but due to this data getting persisted twice
+				System.out.println("1.user done");
+				application = applicationDao.addApplication(application); // call addApplication to persist
+																			// application
+
+				System.out.println(
+						"1. Add member 2. Search member by ID 2. Search member by first name 2. Search member by Last name 3. Update");
+				int operation = sc.nextInt();
+				try {
+
 					switch (operation) {
 					case 1:
 						System.out.println(
@@ -66,18 +88,19 @@ public class ApplicationDemo {
 							System.out.println("2.inside while");
 							// memberInformation=adminUtil.addMember(memberInformation,noOfMembers);
 
+
 							 adminUserUtil.addMember(memberInformation, option);
 
-							System.out.println("3.inside while");
-							// application.setMembers(memberInformation);
-							System.out.println("4.inside while");
-							noOfMembers--;
-							System.out.println("5.end while");
+							memberInformation = adminUserUtil.addMember(memberInformation, option);
+
 						}
 						break;
 
 					case 2:
+
 						System.out.println("enter id of member to search");
+
+
 						Integer memberId = Integer.parseInt(sc.nextLine());
 						System.out.println("Enter Member Id");
 						memberInformation = adminUserUtil.searchMemberById(memberId, option);
@@ -104,6 +127,7 @@ public class ApplicationDemo {
 						System.out.println("invalid choice");
 						break;
 					}
+
 				}
 				 catch (PersistenceException e) {
 						logger.error(e.getMessage(),e);
@@ -125,3 +149,6 @@ public class ApplicationDemo {
 		
 		}
 	}
+
+
+				
