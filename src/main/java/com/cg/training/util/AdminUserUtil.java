@@ -23,7 +23,7 @@ public class AdminUserUtil {
 	private static MemberInformationService memberService = new MemberInformationServiceImpl();
 	private static AdminService adminService = new AdminServiceImpl();
 
-	public MemberInformation addMember(MemberInformation memberInformation, int option)
+	public void addMember(MemberInformation memberInformation, int option)
 			throws AdminException, MemberInformationException {
 
 		System.out.println("Enter First name");
@@ -88,10 +88,10 @@ public class AdminUserUtil {
 
 		if (option == 1) {
 			adminService.addMember(memberInformation);
-			return adminService.addMember(memberInformation);
+			//return adminService.addMember(memberInformation);
 		} else {
 			memberService.addMember(memberInformation);
-			return memberService.addMember(memberInformation);
+			//return memberService.addMember(memberInformation);
 		}
 
 	}
